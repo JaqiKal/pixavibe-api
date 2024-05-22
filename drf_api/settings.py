@@ -40,7 +40,12 @@ SECRET_KEY = 'django-insecure-sj79#kfhhd=gq1eh87@6lm&kaxi_nd%d=n1$np_@k8lqydqymi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '8000-jaqikal-pixavibeapi-om5jvlka210.ws-eu114.gitpod.io',
+    '.herokuapp.com',
+    '127.0.0.1',
+    '.gitpod.io'
+]
 
 
 # Application definition
@@ -54,6 +59,9 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+
+    # App
+    'profiles',
 
 ]
 
