@@ -2,7 +2,7 @@ from rest_framework import serializers
 from posts.models import Post
 
 
-class PostsSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
@@ -14,7 +14,9 @@ class PostsSerializer(serializers.ModelSerializer):
         and sends a message if file is too large to upload
         """
         if value.size > 2 * 1024 * 1024:
-            raise serializers.ValidationError('Image size larger than 2MB!')
+            raise serializers.ValidationError(
+                'Image size larger than 2MB!'
+            )
         if value.image.height > 4096:
             raise serializers.ValidationError(
                 'Image height larger than 4096px!'
