@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .models import Profile
 # converts model instances to JSON and vice versa
 from .serializers import ProfileSerializer
+from drf_api.permissions import IsOwnerOrReadOnly
 
 
 class ProfileList(APIView):
@@ -20,8 +21,13 @@ class ProfileList(APIView):
     hence no post method is included in this view.
     """
     def get(self, request):
+        """
+        Handle GET request for listing all profiles.
+        """
         profiles = Profile.objects.all()
-        serializer = ProfileSerializer(profiles, many=True)
+        serializer = ProfileSerializer(
+            profiles, many=True, context={'request': request}
+        )
         return Response(serializer.data)
 
 
@@ -30,36 +36,39 @@ class ProfileDetail(APIView):
     Retrieve, update or delete a profile instance.
     """
     serializer_class = ProfileSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
     def get_object(self, pk):
-        
         """
         Retrieve a profile by its primary key (pk).
         """
         try:
             profile = Profile.objects.get(pk=pk)
+            self.check_object_permissions(self.request, profile)
             return profile
         except Profile.DoesNotExist:
             raise Http404
-    
+
     def get(self, request, pk):
-        
+
         """
         Handle GET request for retrieving a specific profile.
         """
         profile = self.get_object(pk)
-        serializer = ProfileSerializer(profile)
+        serializer = ProfileSerializer(
+            profile, context={'request': request}
+        )
         return Response(serializer.data)
-        
 
     def put(self, request, pk):
-        
         """
         Handle PUT request for updating a specific profile.
         """
         profile = self.get_object(pk)
-        serializer = ProfileSerializer(profile, data=request.data)
+        serializer = ProfileSerializer(
+            profile, data=request.data, context={'request': request}
+        )
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
