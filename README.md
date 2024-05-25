@@ -416,7 +416,7 @@ Technologies and tools used in the project.
 
 ### Testing
 
-Information on how the project is tested, including tools and methodologies.
+For information on how the project is tested, please refer to the [pixavibe repository, TESTING.md](https://github.com/JaqiKal/pixavibe/blob/main/TESTING.md)
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>*   
 
