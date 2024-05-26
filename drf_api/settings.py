@@ -61,6 +61,13 @@ INSTALLED_APPS = [
     'cloudinary',
     'rest_framework',
     'django_filters',
+    'rest_framework.authtoken', 
+    'dj_rest_auth', 
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 
     # App
     'profiles',
@@ -70,6 +77,34 @@ INSTALLED_APPS = [
     'followers'
 
 ]
+
+SITE_ID = 1
+
+# Use Dev value above to differentiate between 
+# Dev and Prod Modes & add pagination
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [(
+        'rest_framework.authentication.SessionAuthentication'
+        if 'DEV' in os.environ
+        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    )]
+}
+
+# To enable token authentication
+REST_USE_JWT = True
+
+# To ensure tokens sent over HTTPS only
+JWT_AUTH_COOKIE = 'my-app-auth'
+
+# Declare cookie names for the access and refresh tokens
+JWT_AUTH_SECURE = True
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+
+# Overwrite the default USER_DETAILS_SERIALIZER
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'drf_api.serializers.CurrentUserSerializer'
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -33,7 +33,7 @@ Pixavibe API is the backend service used by the [Pixavibe Application](https://g
         - [Future Features](#future-features)
     - [Security](#security)
     - [Technologies](#technologies)
-    - [Testing](#testing)
+    - [Testing & Issues](#testing-issues)
   - [The Surface pLane](#the-surface-plane)
     - [Setup](#setup)
     - [Deployment](#deployment)
@@ -414,9 +414,9 @@ Technologies and tools used in the project.
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>*   
 
-### Testing
+### Testing & Issues
 
-For information on how the project is tested, please refer to the [pixavibe repository, TESTING.md](https://github.com/JaqiKal/pixavibe/blob/main/TESTING.md)
+For information on how the project is tested & Issues encountered, please refer to the [pixavibe repository, TESTING.md](https://github.com/JaqiKal/pixavibe/blob/main/TESTING.md)
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>*   
 
