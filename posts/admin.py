@@ -1,11 +1,11 @@
 from django.contrib import admin
 from .models import Post
-from tags.models import Tag
+from hashtags.models import Hashtag
 
 # Customize the Post admin to manage the Many-to-Many relationship with tags
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'content')
     search_fields = ('title', 'content')
-    filter_horizontal = ('tags',)  # widget for managing Many-to-Many relationships
+    filter_horizontal = ('hashtags',)  # widget for managing Many-to-Many relationships
 
 admin.site.register(Post)

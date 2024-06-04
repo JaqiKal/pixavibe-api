@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from tags.models import Tag 
+from hashtags.models import Hashtag
 
 class Post(models.Model):
     """
@@ -38,7 +38,8 @@ class Post(models.Model):
         choices=image_filter_choices,
         default='normal'
     )
-    tags = models.ManyToManyField(Tag, related_name='posts')
+    hashtags = models.ManyToManyField(Hashtag, related_name='posts')
+
 
     # Order posts by time of posting, starting with the most recent
     class Meta:

@@ -2,18 +2,17 @@
 
 from django.db import migrations, models
 
-
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tags', '0001_initial'),
         ('posts', '0001_initial'),
+        ('hashtags', '0001_initial'),  # Update this line
     ]
 
     operations = [
         migrations.AddField(
             model_name='post',
-            name='tags',
-            field=models.ManyToManyField(related_name='posts', to='tags.Tag'),
+            name='hashtags',
+            field=models.ManyToManyField(related_name='posts', to='hashtags.Hashtag'),  # Update this line
         ),
     ]
