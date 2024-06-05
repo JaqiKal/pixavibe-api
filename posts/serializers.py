@@ -79,6 +79,7 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
         queryset=Hashtag.objects.all(),
         source='hashtags',
     )
+    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
 
     # Meta class for specifying the model & fields to serialize.
     class Meta:
@@ -86,6 +87,8 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
         fields = [
             'id','title', 'content', 'image',
             'image_filter', 'hashtag_ids',
+            'profile_image',
+            
         ]
 
     def validate_hashtags_ids(self, value):
