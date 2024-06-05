@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'likes',
     'followers',
     'hashtags',
+    'contacts',
 
 ]
 
