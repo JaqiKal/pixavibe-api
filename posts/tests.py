@@ -1,4 +1,14 @@
+"""
+Test Runner script for the Posts functionality in the 
+Django REST application.
 
+This script contains test cases for the Post model and 
+its related API endpoints. It ensures that Django is properly 
+initialized & configured before executing the tests. 
+
+The test cases are custom coded with inspiration from sources 
+listed in the README chapter Credits, Content.
+"""
 from django.contrib.auth.models import User
 from django.urls import reverse
 from .models import Post
@@ -50,16 +60,6 @@ class PostListViewTests(APITestCase):
         self.client.logout()
         User.objects.all().delete()
         Post.objects.all().delete()
-
-    def print_existing_users(self):
-        """
-        Print all existing users in the database.
-        This method is useful for debugging purposes to see which users
-        are present in the test database.
-        """
-        users = User.objects.all()
-        for user in users:
-            print(f"Existing user: {user.username}")
 
     @fail_first
     def test_can_list_posts(self):
@@ -134,7 +134,7 @@ class PostDetailViewTests(APITestCase):
         )
         self.client.login(username='albin', password='albinsson1')
         self.fail_case = True
-   
+
     def tearDown(self):
         """
         Clean up after each test method to reset the environment.
@@ -202,3 +202,50 @@ class PostDetailViewTests(APITestCase):
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         else:
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+class PostDeletionTests(APITestCase):
+    """
+    Tests related to the deletion of posts within the Post app.
+    """
+    def setUp(self):
+        """
+        Set up necessary preconditions and initialize objects before
+        each test is run. Creates users and posts for testing.
+        """        
+        self.user = User.objects.create_user(
+            username='testuser', password='testpassword')
+        self.other_user = User.objects.create_user(
+            username='otheruser', password='otherpassword')
+        self.client.login(username='testuser', password='testpassword')
+        self.post = Post.objects.create(
+            owner=self.user, title='A title', content='Some content')
+
+    def tearDown(self):
+        """
+        Clean up after each test method to reset the environment.
+        Logs out the user and deletes all User and Post instances.
+        """
+        self.client.logout()
+        User.objects.all().delete()
+        Post.objects.all().delete()
+
+    def test_user_can_delete_own_post(self):
+        """
+        Ensure that a user can delete their own post and verify the
+        response status.
+        """
+        url = reverse('post-detail', kwargs={'pk': self.post.id})
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_user_cannot_delete_another_users_post(self):
+        """
+        Ensure that a user cannot delete another user's post and receives
+        the appropriate forbidden response.
+        """
+        self.client.logout()
+        self.client.login(username='otheruser', password='otherpassword')
+        url = reverse('post-detail', kwargs={'pk': self.post.id})
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

@@ -509,6 +509,7 @@ Throughout the development of Pixavibe, a variety of resources have been utilize
   - Z
   - This resources is only available to enrolled students at The Code Institute:
     - The Code Institute Diploma in Full Stack Software Development (Advanced Front-End) Walk-through project Django REST framework (backend)
+  - **Testing inspiration**: is listed in [Pixavibe-Frontend README](https://github.com/JaqiKal/pixavibe-frontend/blob/main/README.md#content)
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>*   
 

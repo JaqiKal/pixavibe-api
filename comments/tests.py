@@ -1,3 +1,14 @@
+"""
+Test Runner script for the Comments functionality in the 
+Django REST application.
+
+This script contains test cases for the Comment model and 
+its related API endpoints. It ensures that Django is properly 
+initialized & configured before executing the tests. 
+
+The test cases are custom coded with inspiration from sources 
+listed in the README chapter Credits, Content.
+"""
 from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -54,17 +65,6 @@ class CommentTests(APITestCase):
         User.objects.all().delete()
         Post.objects.all().delete()
         Comment.objects.all().delete()
-
-    def print_existing_users(self):
-        """
-        Print all existing users in the database.
-
-        This method is useful for debugging purposes to see which users
-        are present in the test database.
-        """
-        users = User.objects.all()
-        for user in users:
-            print(f"Existing user: {user.username}")
 
     @fail_first
     def test_can_list_comments(self):
