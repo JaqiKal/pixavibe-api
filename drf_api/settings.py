@@ -17,6 +17,8 @@ import re
 
 if os.path.exists('env.py'):
     import env
+from corsheaders.defaults import default_headers, default_methods
+
 
 # Set Cloudinary storage
 CLOUDINARY_STORAGE = {
@@ -47,10 +49,12 @@ ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
     'localhost',
     '.gitpod.io',
-    '8000-hujanen91-sourdoughcirc-jpubmb1737z.ws-eu114.gitpod.io',
+    'https://8000-jaqikal-pixavibeapi-zb1p83gnbrz.ws-eu114.gitpod.io',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-jaqikal-pixavibeapi-zb1p83gnbrz.ws-eu114.gitpod.io/','https://*.127.0.0.1']
+CORS_ALLOW_HEADERS = list(default_headers)
+CORS_ALLOW_METHODS = list(default_methods)
+CSRF_TRUSTED_ORIGINS = [os.environ.get('CLIENT_ORIGIN_DEV', 'CLIENT_ORIGIN')]
 
 # Application definition
 
@@ -132,6 +136,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if 'CLIENT_ORIGIN' in os.environ:
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
 
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
