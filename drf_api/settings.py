@@ -47,7 +47,10 @@ ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
     'localhost',
     '.gitpod.io',
+    '8000-hujanen91-sourdoughcirc-jpubmb1737z.ws-eu114.gitpod.io',
 ]
+
+CSRF_TRUSTED_ORIGINS = ['https://8000-jaqikal-pixavibeapi-zb1p83gnbrz.ws-eu114.gitpod.io/','https://*.127.0.0.1']
 
 # Application definition
 
