@@ -9,9 +9,7 @@ from django.contrib.auth.models import User
 
 class Contact(models.Model):
     """
-    Represents a contact entry created by a user. 
-    Each contact has an owner, reason, content, 
-    and timestamps for creation and last update.
+    Comment model, related to User
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     reason = models.CharField(max_length=50)
