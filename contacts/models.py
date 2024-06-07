@@ -13,7 +13,7 @@ class Contact(models.Model):
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     reason = models.CharField(max_length=50)
-    content = models.TextField()
+    content = models.TextField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
