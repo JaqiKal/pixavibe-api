@@ -1,14 +1,15 @@
 # Customized to cater for contact management functionality.
-# This module defines the serializer for the Contact model. 
-# The serializer converts the Contact model instances to 
+# This module defines the serializer for the Contact model.
+# The serializer converts the Contact model instances to
 # JSON format and validates the data.
 
 from rest_framework import serializers
 from .models import Contact
 
+
 class ContactSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Contact model. 
+    Serializer for the Contact model.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
     profile_id = serializers.ReadOnlyField(source="owner.profile.id")
@@ -20,7 +21,7 @@ class ContactSerializer(serializers.ModelSerializer):
         """
         model = Contact
         fields = [
-            'id', 
+            'id',
             'owner',
             'reason',
             'content',
@@ -29,3 +30,17 @@ class ContactSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         ]
+
+    def validate_reason(self, value):
+        if not value.strip():
+            raise serializers.ValidationError(
+                "Reason cannot be empty or just spaces."
+            )
+        return value
+
+    def validate_content(self, value):
+        if not value.strip():
+            raise serializers.ValidationError(
+                "Content cannot be empty or just spaces."
+            )
+        return value
