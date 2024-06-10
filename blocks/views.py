@@ -20,7 +20,9 @@ class BlockUserList(generics.ListCreateAPIView):
         user = self.request.user
         if user.is_authenticated:
             return BlockUser.objects.filter(owner=user)
-        return BlockUser.objects.none()
+        else:
+             return BlockUser.objects.none()
+
 
     def perform_create(self, serializer):
         """

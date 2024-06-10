@@ -11,7 +11,6 @@ class BlockUserSerializer(serializers.ModelSerializer):
     from user input.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
-    target_username = serializers.ReadOnlyField(source='target.username')
 
     class Meta:
         model = BlockUser
