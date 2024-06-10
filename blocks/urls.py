@@ -4,12 +4,12 @@ from . import views
 urlpatterns = [
     path(
         'blocks/',
-        views.BlockUserList.as_view(),
+        views.BlockList.as_view(),
         name='block-list'
     ),
     path(
         'blocks/<int:pk>/',
-        views.BlockUserDetail.as_view(),
+        views.BlockDetail.as_view(),
         name='block-detail'
     ),
 ]

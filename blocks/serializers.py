@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from django.db import IntegrityError
-from .models import BlockUser
+from .models import Block
 
 
-class BlockUserSerializer(serializers.ModelSerializer):
+class BlockSerializer(serializers.ModelSerializer):
     """
     Serializer for the Block model.'owner' initiates block and 'target' is 
     the blocked user.The 'owner' and 'target_username' fields are read-only, 
@@ -13,7 +13,7 @@ class BlockUserSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
-        model = BlockUser
+        model = Block
         fields = ['id', 'owner', 'target', 'created_at']
 
     def create(self, validated_data):

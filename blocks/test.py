@@ -3,11 +3,11 @@ from django.test import TransactionTestCase
 from rest_framework import status
 from rest_framework.test import APITestCase
 from django.urls import reverse
-from .models import BlockUser
+from .models import Block
 
-class BlockUserTests(TransactionTestCase):
+class BlockTests(TransactionTestCase):
     """
-    Test suite for the BlockUser model and API endpoints.
+    Test suite for the Block model and API endpoints.
     """
     reset_sequences = True  # Ensure primary keys are reset between tests
 
@@ -29,11 +29,11 @@ class BlockUserTests(TransactionTestCase):
     def tearDown(self):
         """
         Tear down the test environment.
-        This method logs out the test user and deletes all User and BlockUser instances.
+        This method logs out the test user and deletes all User and Block instances.
         """
         self.client.logout()
         User.objects.all().delete()
-        BlockUser.objects.all().delete()
+        Block.objects.all().delete()
 
     def test_create_block(self):
         """
@@ -49,7 +49,7 @@ class BlockUserTests(TransactionTestCase):
         """
         Test listing of blocks.
         """
-        BlockUser.objects.create(owner=self.user1, target=self.user2)
+        Block.objects.create(owner=self.user1, target=self.user2)
         response = self.client.get(reverse('block-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
@@ -58,7 +58,7 @@ class BlockUserTests(TransactionTestCase):
         """
         Test retrieving a block.
         """
-        block = BlockUser.objects.create(owner=self.user1, target=self.user2)
+        block = Block.objects.create(owner=self.user1, target=self.user2)
         url = reverse('block-detail', kwargs={'pk': block.id})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -68,17 +68,17 @@ class BlockUserTests(TransactionTestCase):
         """
         Test deleting a block.
         """
-        block = BlockUser.objects.create(owner=self.user1, target=self.user2)
+        block = Block.objects.create(owner=self.user1, target=self.user2)
         url = reverse('block-detail', kwargs={'pk': block.id})
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(BlockUser.objects.count(), 0)
+        self.assertEqual(Block.objects.count(), 0)
 
     def test_block_duplicate(self):
         """
         Test that a duplicate block cannot be created.
         """
-        BlockUser.objects.create(owner=self.user1, target=self.user2)
+        Block.objects.create(owner=self.user1, target=self.user2)
         url = reverse('block-list')
         data = {'target': self.user2.id}
         response = self.client.post(url, data, format='json')

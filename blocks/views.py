@@ -1,15 +1,15 @@
 from rest_framework import generics, permissions
-from .models import BlockUser
-from .serializers import BlockUserSerializer
+from .models import Block
+from .serializers import BlockSerializer
 from drf_api.permissions import IsOwnerOrReadOnly
 
-class BlockUserList(generics.ListCreateAPIView):
+class BlockList(generics.ListCreateAPIView):
     """
     List of blocked users. If authenticated, create a block.
     """
-    serializer_class = BlockUserSerializer
+    serializer_class = BlockSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = BlockUser.objects.all()
+    queryset = Block.objects.all()
 
     def get_queryset(self):
         """
@@ -19,9 +19,9 @@ class BlockUserList(generics.ListCreateAPIView):
         """
         user = self.request.user
         if user.is_authenticated:
-            return BlockUser.objects.filter(owner=user)
+            return Block.objects.filter(owner=user)
         else:
-             return BlockUser.objects.none()
+             return Block.objects.none()
 
 
     def perform_create(self, serializer):
@@ -31,11 +31,11 @@ class BlockUserList(generics.ListCreateAPIView):
         """
         serializer.save(owner=self.request.user)
 
-class BlockUserDetail(generics.RetrieveDestroyAPIView):
+class BlockDetail(generics.RetrieveDestroyAPIView):
     """
     Retrieve a block,
     If you're the owner, also delete the block.
     """
-    serializer_class = BlockUserSerializer
+    serializer_class = BlockSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = BlockUser.objects.all()
+    queryset = Block.objects.all()

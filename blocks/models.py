@@ -1,19 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class BlockUser(models.Model):
+class Block(models.Model):
     """
     Block model creates a relationship between the user who initiates
     the block (owner) and the user being blocked (target). A user can
     block another user, preventing the blocked user from interacting
     with the blocker's content.
     """
-    owner = models.ForeignKey(
-        User, related_name='blocking', on_delete=models.CASCADE
-    )
-    target = models.ForeignKey(
-        User,
-        related_name='blocked_by', on_delete=models.CASCADE
+    owner = models.ForeignKey(User, related_name='blocking', on_delete=models.CASCADE)
+    target = models.ForeignKey(User, related_name='blocked_by', on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
