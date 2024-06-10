@@ -14,7 +14,7 @@ class BlockUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BlockUser
-        fields = ['id', 'owner', 'target', 'created_at', 'target_username']
+        fields = ['id', 'owner', 'target', 'created_at']
 
     def create(self, validated_data):
         """
