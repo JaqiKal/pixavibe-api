@@ -56,10 +56,8 @@ class ProfileSerializer(serializers.ModelSerializer):
           else False.
         """
         user = self.context['request'].user
-        if user.is_authenticated:
-            blocking = Block.objects.filter(owner=user, target=obj.owner).first()
-            return blocking is not None
-        return False
+        blocking = Block.objects.filter(owner=user, target=obj.owner).first()
+        return blocking is not None
 
     def get_blocking_id(self, obj):
         """
@@ -71,11 +69,8 @@ class ProfileSerializer(serializers.ModelSerializer):
           not blocking.
         """
         user = self.context['request'].user
-        if user.is_authenticated:
-            blocking = Block.objects.filter(owner=user, target=obj.owner).first()
-            if blocking:
-                return blocking.target.id
-            return None
+        blocking = Block.objects.filter(owner=user, target=obj.owner).first()
+        return blocking.id if blocking else None
 
     def get_blocking_target(self, obj):
         """
@@ -86,10 +81,9 @@ class ProfileSerializer(serializers.ModelSerializer):
           None if not blocking.
         """
         user = self.context['request'].user
-        if user.is_authenticated:
-            blocking = Block.objects.filter(owner=user, target=obj.owner).first()
-            if blocking:
-                return blocking.target.username
+        blocking = Block.objects.filter(owner=user, target=obj.owner).first()
+        if blocking:
+            return blocking.target.id
         return None
     
     class Meta:
