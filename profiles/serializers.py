@@ -82,11 +82,11 @@ class ProfileSerializer(serializers.ModelSerializer):
         - str or None: The username of the target being blocked or 
           None if not blocking.
         """
-        user = self.context['request'].username
+        user = self.context['request'].user
         blocking = Block.objects.filter(owner=user, target=obj.owner).first()
         if blocking:
-            return blocking.target.blocking_id
-        return none
+            return blocking.target.username
+        return None
     
     class Meta:
         model = Profile
