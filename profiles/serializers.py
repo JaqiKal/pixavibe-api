@@ -89,7 +89,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         if user.is_authenticated:
             blocking = Block.objects.filter(owner=user, target=obj.owner).first()
             if blocking:
-            return blocking.target.username
+                return blocking.target.username
         return None
     
     class Meta:
