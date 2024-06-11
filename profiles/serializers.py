@@ -1,9 +1,10 @@
 """
-Customized to cater for blocking.
+Amended from walkthrough 'drf_api', customized to cater for 
+blocking functionality.
 
-Serializers for the Profile model to convert model instances to JSON 
-representations and vice versa. Handles custom fields for user ownership, 
-following status, and blocking status.
+Serializers for the Profile model to convert model instances to
+JSON representations and vice versa. Handles custom fields for 
+user ownership, following status, and blocking status.
 
 """
 from rest_framework import serializers
