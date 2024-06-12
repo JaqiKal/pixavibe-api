@@ -13,10 +13,6 @@ class PostList(generics.ListCreateAPIView):
     """
     serializer_class = PostCreateUpdateSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Post.objects.annotate(
-        likes_count=Count('likes', distinct=True),
-        comments_count=Count('comment', distinct=True)
-    ).order_by('-created_at')
     filter_backends = [
         filters.OrderingFilter,
         filters.SearchFilter,
@@ -39,6 +35,18 @@ class PostList(generics.ListCreateAPIView):
         'likes__created_at',
     ]
 
+    def get_queryset(self):
+        queryset = Post.objects.annotate(
+            likes_count=Count('likes', distinct=True),
+            comments_count=Count('comment', distinct=True)
+        ).order_by('-created_at')
+
+        user = self.request.user
+        if user.is_authenticated:
+            blocked_users = user.blocking.values_list('target', flat=True)
+            queryset = queryset.exclude(owner__in=blocked_users)
+        return queryset
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
@@ -49,10 +57,18 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = PostCreateUpdateSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Post.objects.annotate(
-        likes_count=Count('likes', distinct=True),
-        comments_count=Count('comment', distinct=True)
-    ).order_by('-created_at')
+
+    def get_queryset(self):
+        queryset = Post.objects.annotate(
+            likes_count=Count('likes', distinct=True),
+            comments_count=Count('comment', distinct=True)
+        ).order_by('-created_at')
+
+        user = self.request.user
+        if user.is_authenticated:
+            blocked_users = user.blocking.values_list('target', flat=True)
+            queryset = queryset.exclude(owner__in=blocked_users)
+        return queryset
 
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'PATCH']:
