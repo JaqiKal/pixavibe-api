@@ -34,5 +34,6 @@ urlpatterns = [
     path('', include('hashtags.urls')),
     path('', include('contacts.urls')),
     path('', include('blocks.urls')),
+    path('', include('category.urls')),
 
 ]

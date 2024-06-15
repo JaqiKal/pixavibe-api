@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'hashtags',
     'contacts',
     'blocks',
+    'category',
 
 ]
 
