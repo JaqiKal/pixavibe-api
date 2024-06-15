@@ -7,7 +7,7 @@ from posts.models import Post
 from likes.models import Like
 from hashtags.models import Hashtag
 from hashtags.serializers import HashtagSerializer
-
+from category.models import Category
 
 # Serializer for serializing Post instances to JSON,
 # focusing on read operations.
@@ -20,6 +20,14 @@ class PostSerializer(serializers.ModelSerializer):
     likes_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
     hashtags = HashtagSerializer(many=True, read_only=True)
+    category_name = serializers.ReadOnlyField(source='category.name')
+    
+    category = serializers.SlugRelatedField(
+        queryset=Category.objects.all(),
+        slug_field='name',
+        allow_null=True,
+        required=False
+    )
 
     def validate_image(self, value):
         """
@@ -65,7 +73,7 @@ class PostSerializer(serializers.ModelSerializer):
             'profile_image', 'created_at', 'updated_at',
             'title', 'content', 'image', 'image_filter',
             'like_id', 'likes_count', 'comments_count',
-            'hashtags',
+            'hashtags', 'category', 'category_name',
         ]
 
 
