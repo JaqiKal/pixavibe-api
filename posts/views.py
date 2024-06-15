@@ -2,9 +2,8 @@ from django.db.models import Count
 from rest_framework import generics, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_api.permissions import IsOwnerOrReadOnly
-from .models import Post
+from .models import Post, Category
 from .serializers import PostSerializer, PostCreateUpdateSerializer
-
 
 class PostList(generics.ListCreateAPIView):
     """
@@ -23,6 +22,7 @@ class PostList(generics.ListCreateAPIView):
         'likes__owner__profile',
         'owner__profile',
         'hashtags__name',
+        'category',
     ]
     search_fields = [
         'owner__username',
@@ -48,11 +48,17 @@ class PostList(generics.ListCreateAPIView):
         return queryset
 
     def perform_create(self, serializer):
-
+        """
+        Create new post.
+        """
         print("Request data:", self.request.data)  # Log the request data
-        serializer.save(owner=self.request.user)
-
-
+        category_name = self.request.data.get('category', None)
+        if category_name:
+            category = Category.objects.get(name=category_name)
+            serializer.save(owner=self.request.user, category=category)
+        else:
+            serializer.save(owner=self.request.user)
+            
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve a post and edit or delete it if you own it.
