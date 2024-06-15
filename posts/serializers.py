@@ -1,7 +1,7 @@
 # Amended from walkthrough 'drf_api', customized to cater for 'Hashtags'.
 # This module defines serializers for handling posts, including
 # creating and updating posts with associated hashtags and images.
-
+import re
 from rest_framework import serializers
 from posts.models import Post
 from likes.models import Like
@@ -102,14 +102,14 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
                     f"Hashtag '{hashtag.name}' is too long."
                 )
                 # Allow hashtags with letters, numbers, and underscores
-            if not re.match(r'^[\w_]+$', hashtag.name):
+            if not re.match(r'^[\w_]+$', str(hashtag.id)):
                 raise serializers.ValidationError(
                     f"Hashtag '{hashtag.name}' contains invalid characters."
                 )
         return value
 
     def create(self, validated_data):
-        hashtags = validates_data.pop('hashtags')
+        hashtags = validated_data.pop('hashtags')
         post = Post.objects.create(**validated_data)
         post.hashtags.set(hashtags)
         return post

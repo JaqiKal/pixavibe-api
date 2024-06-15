@@ -48,6 +48,8 @@ class PostList(generics.ListCreateAPIView):
         return queryset
 
     def perform_create(self, serializer):
+
+        print("Request data:", self.request.data)  # Log the request data
         serializer.save(owner=self.request.user)
 
 
