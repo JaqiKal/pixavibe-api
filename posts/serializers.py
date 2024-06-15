@@ -107,3 +107,21 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
                     f"Hashtag '{hashtag.name}' contains invalid characters."
                 )
         return value
+
+    def create(self, validated_data):
+        hashtags = validates_data.pop('hashtags')
+        post = Post.objects.create(**validated_data)
+        post.hashtags.set(hashtags)
+        return post
+    
+    def update(self, instance, validated_data):
+        hashtags = validated_data.pop('hashtags')
+        instance.title = validated_data.get('title', instance.title)
+        instance.content = validated_data.get('content', instance.content)
+        instance.image = validated_data.get('image', instance.image)
+        instance.image_filter = validated_data.get('image_filter', instance.image_filter)
+        instance.save()
+        instance.hashtags.set(hashtags)
+        return instance
+
+
