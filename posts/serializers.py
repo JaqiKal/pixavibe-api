@@ -91,7 +91,7 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
             
         ]
 
-    def validate_hashtags_ids(self, value):
+    def validate_hashtag_ids(self, value):
         """
         Validates the IDs of hashtags being associated with the post.
         """
