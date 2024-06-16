@@ -95,6 +95,13 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
         source='hashtags',
     )
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    
+    category = serializers.SlugRelatedField(
+        queryset=Category.objects.all(),
+        slug_field='name',
+        allow_null=True,
+        required=False
+    )
 
     # Meta class for specifying the model & fields to serialize.
     class Meta:
@@ -102,7 +109,7 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
         fields = [
             'id','title', 'content', 'image',
             'image_filter', 'hashtag_ids',
-            'profile_image',
+            'profile_image', 'category'
             
         ]
 
@@ -135,6 +142,7 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
         instance.content = validated_data.get('content', instance.content)
         instance.image = validated_data.get('image', instance.image)
         instance.image_filter = validated_data.get('image_filter', instance.image_filter)
+        instance.category = validated_data.get('category', instance.category)
         instance.save()
         instance.hashtags.set(hashtags)
         return instance
