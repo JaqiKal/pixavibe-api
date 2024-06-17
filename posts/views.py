@@ -10,7 +10,7 @@ class PostList(generics.ListCreateAPIView):
     List posts or create a post if logged in
     The perform_create method associates the post with the logged in user.
     """
-    serializer_class = PostCreateUpdateSerializer
+    serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends = [
         filters.OrderingFilter,
@@ -51,7 +51,6 @@ class PostList(generics.ListCreateAPIView):
         """
         Create new post.
         """
-        print("Request data:", self.request.data)  # Log the request data
         category_name = self.request.data.get('category', None)
         if category_name:
             category = Category.objects.get(name=category_name)
