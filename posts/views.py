@@ -42,9 +42,9 @@ class PostList(generics.ListCreateAPIView):
         ).order_by('-created_at')
 
         user = self.request.user
-        if user.is_authenticated:
-            blocked_users = user.blocking.values_list('target', flat=True)
-            queryset = queryset.exclude(owner__in=blocked_users)
+        #if user.is_authenticated:
+        #    blocked_users = user.blocking.values_list('target', flat=True)
+        #    queryset = queryset.exclude(owner__in=blocked_users)
         return queryset
 
     def perform_create(self, serializer):
