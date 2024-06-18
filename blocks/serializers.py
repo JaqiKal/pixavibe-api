@@ -5,9 +5,9 @@ from .models import Block
 
 class BlockSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Block model.'owner' initiates block and 'target' is 
-    the blocked user.The 'owner' and 'target_username' fields are read-only, 
-    ensuring that they are populated from the related User model and not 
+    Serializer for the Block model.'owner' initiates block and 'target' is
+    the blocked user.The 'owner' and 'target_username' fields are read-only,
+    ensuring that they are populated from the related User model and not
     from user input.
     """
     owner = serializers.ReadOnlyField(source='owner.username')

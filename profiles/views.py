@@ -1,9 +1,9 @@
 """
-Amended from walkthrough 'drf_api', customized to cater for 
+Amended from walkthrough 'drf_api', customized to cater for
 blocking functionality.
 
-This module defines API views for listing and retrieving 
-profile instances. Profiles include information about the 
+This module defines API views for listing and retrieving
+profile instances. Profiles include information about the
 number of posts, followers, following, and blocking relationships.
 
 """

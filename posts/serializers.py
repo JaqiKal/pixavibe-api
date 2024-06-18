@@ -9,6 +9,7 @@ from hashtags.models import Hashtag
 from hashtags.serializers import HashtagSerializer
 from category.models import Category
 
+
 # Serializer for serializing Post instances to JSON,
 # focusing on read operations.
 class PostSerializer(serializers.ModelSerializer):
@@ -21,7 +22,7 @@ class PostSerializer(serializers.ModelSerializer):
     comments_count = serializers.ReadOnlyField()
     hashtags = HashtagSerializer(many=True, read_only=True)
     category_name = serializers.ReadOnlyField(source='category.name')
-    
+
     category = serializers.SlugRelatedField(
         queryset=Category.objects.all(),
         slug_field='name',
@@ -95,7 +96,7 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
         source='hashtags',
     )
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
-    
+
     category = serializers.SlugRelatedField(
         queryset=Category.objects.all(),
         slug_field='name',
@@ -107,10 +108,9 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = [
-            'id','title', 'content', 'image',
+            'id', 'title', 'content', 'image',
             'image_filter', 'hashtag_ids',
             'profile_image', 'category'
-            
         ]
 
     def validate_hashtag_ids(self, value):
@@ -135,16 +135,17 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
         post = Post.objects.create(**validated_data)
         post.hashtags.set(hashtags)
         return post
-    
+
     def update(self, instance, validated_data):
         hashtags = validated_data.pop('hashtags')
         instance.title = validated_data.get('title', instance.title)
         instance.content = validated_data.get('content', instance.content)
         instance.image = validated_data.get('image', instance.image)
-        instance.image_filter = validated_data.get('image_filter', instance.image_filter)
+        instance.image_filter = validated_data.get(
+            'image_filter',
+            instance.image_filter
+        )
         instance.category = validated_data.get('category', instance.category)
         instance.save()
         instance.hashtags.set(hashtags)
         return instance
-
-
