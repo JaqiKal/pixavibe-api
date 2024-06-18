@@ -13,12 +13,14 @@ class Profile(models.Model):
         upload_to='images/', default='../pixavibe/default_profile_pbhpua.jpg'
     )
     # Return instances in reverse order
+
     class Meta:
         ordering = ['-created_at']
 
     # human-readable string with info of who owner is
     def __str__(self):
         return f"{self.owner}'s profile"
+
 
 # Define create profile function before passing it as an argument
 def create_profile(sender, instance, created, **kwargs):
@@ -27,6 +29,7 @@ def create_profile(sender, instance, created, **kwargs):
     """
     if created:
         Profile.objects.create(owner=instance)
+
 
 # Listen for the post_save signal coming from the User model
 # by calling the connect function

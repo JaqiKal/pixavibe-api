@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Category
 
+
 class CategorySerializer(serializers.ModelSerializer):
     """
     Serializes Category model (id, name, created_at) for API.
@@ -9,14 +10,14 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ['id', 'name', 'created_at']
 
+
 class CategoryDetailSerializer(CategorySerializer):
     """
     Serializer for the Comment model used in Detail view
     Post is a read only field.
     """
-    category_id =  serializers.ReadOnlyField(source='id')
+    category_id = serializers.ReadOnlyField(source='id')
 
     class Meta:
         model = Category
         fields = ['id', 'name', 'created_at', 'category_id']
-

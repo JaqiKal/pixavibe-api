@@ -1,9 +1,9 @@
 """
-Amended from walkthrough 'drf_api', customized to cater for 
+Amended from walkthrough 'drf_api', customized to cater for
 blocking functionality.
 
 Serializers for the Profile model to convert model instances to
-JSON representations and vice versa. Handles custom fields for 
+JSON representations and vice versa. Handles custom fields for
 user ownership, following status, and blocking status.
 
 """
@@ -11,6 +11,7 @@ from rest_framework import serializers
 from .models import Profile
 from followers.models import Follower
 from blocks.models import Block
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     """
@@ -36,7 +37,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_following_id(self, obj):
         """
-        Retrieves the ID of the following relationship if the user is 
+        Retrieves the ID of the following relationship if the user is
         following the profile owner.
         """
         user = self.context['request'].user
@@ -49,15 +50,18 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_is_blocking(self, obj):
         """
-        Checks if the request user is blocking the profile owner.
-        
+         Checks if the request user is blocking the profile owner.
+
         Returns:
         - bool: True if the request user is blocking the profile owner,
           else False.
         """
         user = self.context['request'].user
         if user.is_authenticated:
-            blocking = Block.objects.filter(owner=user, target=obj.owner).first()
+            blocking = Block.objects.filter(
+                owner=user,
+                target=obj.owner
+            ).first()
             return blocking is not None
         return False
 
@@ -65,14 +69,17 @@ class ProfileSerializer(serializers.ModelSerializer):
         """
         Retrieves the ID of the blocking relationship if the user is
         blocking the profile owner.
- 
+
         Returns:
         - int or None: The ID of the blocking relationship or None if
           not blocking.
         """
         user = self.context['request'].user
         if user.is_authenticated:
-            blocking = Block.objects.filter(owner=user, target=obj.owner).first()
+            blocking = Block.objects.filter(
+                owner=user,
+                target=obj.owner
+            ).first()
             return blocking.id if blocking else None
         return None
 
@@ -81,16 +88,19 @@ class ProfileSerializer(serializers.ModelSerializer):
         Retrieves the username of the target being blocked by the user.
 
         Returns:
-        - str or None: The username of the target being blocked or 
+        - str or None: The username of the target being blocked or
           None if not blocking.
         """
         user = self.context['request'].user
         if user.is_authenticated:
-            blocking = Block.objects.filter(owner=user, target=obj.owner).first()
+            blocking = Block.objects.filter(
+                owner=user,
+                target=obj.owner
+            ).first()
             if blocking:
                 return blocking.target.id
         return None
-    
+
     class Meta:
         model = Profile
         fields = [

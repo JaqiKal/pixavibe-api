@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from hashtags.models import Hashtag
 from category.models import Category
 
+
 class Post(models.Model):
     """
     Post model, related to 'owner', i.e. a User instance.

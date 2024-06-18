@@ -6,6 +6,7 @@ from django.urls import reverse
 from .models import Block
 from posts.models import Post
 
+
 class BlockTests(TransactionTestCase):
     """
     Test suite for the Block model and API endpoints.
@@ -30,7 +31,8 @@ class BlockTests(TransactionTestCase):
     def tearDown(self):
         """
         Tear down the test environment.
-        This method logs out the test user and deletes all User and Block instances.
+        This method logs out the test user and deletes all User and
+        Block instances.
         """
         self.client.logout()
         User.objects.all().delete()
@@ -54,7 +56,7 @@ class BlockTests(TransactionTestCase):
         response = self.client.get(reverse('block-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
-    
+
     def test_retrieve_block(self):
         """
         Test retrieving a block.
@@ -96,6 +98,7 @@ class BlockTests(TransactionTestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+
 class BlockPostTests(APITestCase):
     """
     Test suite for blocking and unblocking users and the visibility of posts.
@@ -105,11 +108,25 @@ class BlockPostTests(APITestCase):
         """
         Set up necessary preconditions and initialize objects before each test.
         """
-        self.user1 = User.objects.create_user(username='user1', password='password1')
-        self.user2 = User.objects.create_user(username='user2', password='password2')
+        self.user1 = User.objects.create_user(
+            username='user1',
+            password='password1'
+        )
+        self.user2 = User.objects.create_user(
+            username='user2',
+            password='password2'
+        )
         self.client.login(username='user1', password='password1')
-        self.post_by_user2 = Post.objects.create(owner=self.user2, title='Post by User 2', content='Content by user 2')
-        self.post_by_user1 = Post.objects.create(owner=self.user1, title='Post by User 1', content='Content by user 1')
+        self.post_by_user2 = Post.objects.create(
+            owner=self.user2,
+            title='Post by User 2',
+            content='Content by user 2'
+        )
+        self.post_by_user1 = Post.objects.create(
+            owner=self.user1,
+            title='Post by User 1',
+            content='Content by user 1'
+        )
 
     def tearDown(self):
         """
@@ -129,7 +146,7 @@ class BlockPostTests(APITestCase):
         data = {'target': self.user2.id}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        
+
         # Check that user1 cannot see posts by user2
         response = self.client.get(reverse('post-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -138,7 +155,8 @@ class BlockPostTests(APITestCase):
 
     def test_unblock_user(self):
         """
-        Test that unblocking a user makes their posts visible to the unblocking user.
+        Test that unblocking a user makes their posts visible to the
+        unblocking user.
         """
         # Block and then unblock user2
         Block.objects.create(owner=self.user1, target=self.user2)
@@ -159,7 +177,7 @@ class BlockPostTests(APITestCase):
         """
         # Block user1's own post to check self-visibility
         Block.objects.create(owner=self.user1, target=self.user2)
-        
+
         # Check that user1 can still see their own post
         response = self.client.get(reverse('post-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -178,11 +196,12 @@ class BlockPostTests(APITestCase):
 
     def test_post_visibility_after_block_and_unblock(self):
         """
-        Test that posts from a blocked user are hidden and then shown after unblocking.
+        Test that posts from a blocked user are hidden and then shown
+        after unblocking.
         """
         # Block user2
         Block.objects.create(owner=self.user1, target=self.user2)
-        
+
         # Check that user1 cannot see posts by user2
         response = self.client.get(reverse('post-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)

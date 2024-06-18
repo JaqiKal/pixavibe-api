@@ -1,6 +1,7 @@
 from django.db import models
 
-class Category(models.Model): 
+
+class Category(models.Model):
     """
     Represents a category within an application.
     This model allows categorizing of posts.

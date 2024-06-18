@@ -21,7 +21,6 @@ if os.path.exists('env.py'):
 
 from corsheaders.defaults import default_headers, default_methods
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

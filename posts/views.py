@@ -5,6 +5,7 @@ from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Post, Category
 from .serializers import PostSerializer, PostCreateUpdateSerializer
 
+
 class PostList(generics.ListCreateAPIView):
     """
     List posts or create a post if logged in
@@ -57,7 +58,8 @@ class PostList(generics.ListCreateAPIView):
             serializer.save(owner=self.request.user, category=category)
         else:
             serializer.save(owner=self.request.user)
-            
+
+
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve a post and edit or delete it if you own it.

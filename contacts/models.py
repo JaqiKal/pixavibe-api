@@ -1,6 +1,6 @@
 # Customized to cater for contact management functionality.
-# This module defines the Contact model used to store information about 
-# contacts made by users. It includes fields for the contact owner, reason, 
+# This module defines the Contact model used to store information about
+# contacts made by users. It includes fields for the contact owner, reason,
 # content, and timestamps for creation and updates.
 
 from django.db import models
@@ -22,7 +22,7 @@ class Contact(models.Model):
 
     def __str__(self):
         """
-        Returns a string representation of the contact, combining 
+        Returns a string representation of the contact, combining
         the owner's username and the reason for the contact.
         """
         return f'{self.owner} : {self.reason}'

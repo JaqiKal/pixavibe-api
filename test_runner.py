@@ -1,7 +1,7 @@
 """
 Test Runner script for the Django REST application.
 
-The script and the test cases are custom coded with inspiration from 
+The script and the test cases are custom coded with inspiration from
 sources listed in the README chapter Credits, Content].
 
 This module sets up & runs tests for the Django application. The script
@@ -15,8 +15,6 @@ if __name__ == '__main__':
     from django.conf import settings
     from django.test.utils import get_runner
     import django
-    
-    
     # Set the environment variable for Django settings module
     os.environ['DJANGO_SETTINGS_MODULE'] = 'drf_api.settings' 
 
@@ -25,7 +23,7 @@ if __name__ == '__main__':
 
     # Get the test runner class from settings
     TestRunner = get_runner(settings)
-    
+
     # Create an instance of the test runner
     test_runner = TestRunner()
 

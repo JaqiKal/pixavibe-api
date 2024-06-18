@@ -9,7 +9,7 @@ class CategoryList(generics.ListAPIView):
     """
     API view to list all categories.
     Allows filtering by name.
-    """    
+    """
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -25,8 +25,3 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = CategoryDetailSerializer
     queryset = Category.objects.all()
-
-
-
-
-

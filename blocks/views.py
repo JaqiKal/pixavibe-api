@@ -3,6 +3,7 @@ from .models import Block
 from .serializers import BlockSerializer
 from drf_api.permissions import IsOwnerOrReadOnly
 
+
 class BlockList(generics.ListCreateAPIView):
     """
     List of blocked users. If authenticated, create a block.
@@ -13,16 +14,15 @@ class BlockList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         """
-        This method returns a queryset of blocks for the currently 
-        authenticated user. If the user is not authenticated, it 
+        This method returns a queryset of blocks for the currently
+        authenticated user. If the user is not authenticated, it
         returns an empty queryset.
         """
         user = self.request.user
         if user.is_authenticated:
             return Block.objects.filter(owner=user)
         else:
-             return Block.objects.none()
-
+            return Block.objects.none()
 
     def perform_create(self, serializer):
         """
@@ -30,6 +30,7 @@ class BlockList(generics.ListCreateAPIView):
         set to the currently authenticated user.
         """
         serializer.save(owner=self.request.user)
+
 
 class BlockDetail(generics.RetrieveDestroyAPIView):
     """

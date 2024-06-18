@@ -8,6 +8,7 @@ from .models import Contact
 from .serializers import ContactSerializer
 from drf_api.permissions import IsOwnerOrReadOnly
 
+
 class ContactList(generics.ListCreateAPIView):
     """
     List contacts or create a contact if logged in.
@@ -21,6 +22,7 @@ class ContactList(generics.ListCreateAPIView):
         Saves the new contact instance with the owner set to the current user.
         """
         serializer.save(owner=self.request.user)
+
 
 class ContactDetail(generics.RetrieveUpdateDestroyAPIView):
     """

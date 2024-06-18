@@ -1,12 +1,12 @@
 """
-Test Runner script for the Hashtags functionality in the 
+Test Runner script for the Hashtags functionality in the
 Django REST application.
 
-This script contains test cases for the Hashtag model and 
-its related API endpoints. It ensures that Django is properly 
-initialized & configured before executing the tests. 
+This script contains test cases for the Hashtag model and
+its related API endpoints. It ensures that Django is properly
+initialized & configured before executing the tests.
 
-The test cases are custom coded with inspiration from sources 
+The test cases are custom coded with inspiration from sources
 listed in the README chapter Credits, Content.
 """
 from django.contrib.auth.models import User
@@ -16,26 +16,28 @@ from django.urls import reverse
 from hashtags.models import Hashtag
 from posts.models import Post
 
+
 class HashtagTests(APITestCase):
     """
     Test suite for the Hashtag model and API endpoints.
     """
     def setUp(self):
-      """
-      Set up the test environment.
-      This method creates a test user and logs in the user.
-      """
-      # Create a test user and log in
-      self.user = User.objects.create_user(
-          username='testuser',
-          password='testpassword')
-      self.client.login(username='testuser', password='testpassword')
+        """
+        Set up the test environment.
+        This method creates a test user and logs in the user.
+        """
+    # Create a test user and log in
+    self.user = User.objects.create_user(
+        username='testuser',
+        password='testpassword'
+    )
+    self.client.login(username='testuser', password='testpassword')
 
     def tearDown(self):
         """
         Tear down the test environment.
 
-        This method logs out the test user and deletes all User, 
+        This method logs out the test user and deletes all User,
         Post, and Hashtag instances.
         """
         self.client.logout()
@@ -111,7 +113,7 @@ class HashtagTests(APITestCase):
     def test_add_remove_hashtag_to_post(self):
         """
         Test adding and removing a hashtag to/from a post.
-        
+
         - A user can add a hashtag to a post.
         - Response reflects added hashtag in the 'hashtag' field.
         - A user can remove a hashtag from a post

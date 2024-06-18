@@ -1,12 +1,12 @@
 """
-Test Runner script for the Comments functionality in the 
+Test Runner script for the Comments functionality in the
 Django REST application.
 
-This script contains test cases for the Comment model and 
-its related API endpoints. It ensures that Django is properly 
-initialized & configured before executing the tests. 
+This script contains test cases for the Comment model and
+its related API endpoints. It ensures that Django is properly
+initialized & configured before executing the tests.
 
-The test cases are custom coded with inspiration from sources 
+The test cases are custom coded with inspiration from sources
 listed in the README chapter Credits, Content.
 """
 from django.contrib.auth.models import User
