@@ -1,6 +1,6 @@
 # Introduction
 
-![Add an image]()
+![amiresponsive](/documentation/readme-image/amiresponsive.webp)
 
 Pixavibe is a Full-Stack web application designed to facilitate content sharing among users, akin to a simplified version of Instagram. Utilizing and Django Rest Framework for the back-end and React for the front-end, the application provides a seamless user experience for browsing, posting, and interacting with content.
 Pixavibe API is the backend service used by the [Pixavibe Application](https://github.com/JaqiKal/pixavibe).
