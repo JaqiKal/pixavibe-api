@@ -206,7 +206,7 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
     ).group(0)
 
     CORS_ALLOWED_ORIGIN_REGEXES = [
-        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
+        rf"{extracted_url}(eu|us)\d+\w\.codeinstitute-ide\.net$",
     ]
 
 CORS_ALLOW_CREDENTIALS = True
