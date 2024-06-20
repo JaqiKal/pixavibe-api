@@ -32,13 +32,15 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # This mean it is True in development, and False in production
-DEBUG = 'DEV' in os.environ
+DEBUG = 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
     'localhost',
     '.gitpod.io',
     'https://8000-jaqikal-pixavibeapi-zb1p83gnbrz.ws-eu114.gitpod.io',
+    '8000-jaqikal-pixavibeapi-42l9hzltclf.ws.codeinstitute-ide.net',
+    '8001-jaqikal-pixavibeapi-42l9hzltclf.ws.codeinstitute-ide.net',
 ]
 
 # Application definition
