@@ -34,6 +34,81 @@ This is the API for the Pixavibe backend application. Detailed information about
 
 In the development environment, Pixavibe uses SQLite, which is simple to set up and ideal for development and testing. For the production environment, PostgreSQL is used due to its robustness, scalability, and advanced features suitable for handling a live web application.
 
+### Data Modeling and Database Design
+
+#### Entity-Relationship Diagram
+
+The Entity-Relationship Diagram (ERD) provides a visual representation of the database's structure. It helps in planning and illustrating the SQL tables and the relationships between them. The ERD is an essential part of the database design that shows the entities, their attributes, and the types of relationships among the entities.
+
+REWORK!!   
+- Remove boolean is_active  from 
+- Rename Tag to HAshtag
+- Add category
+
+![erd](/documentation/readme-image/erd.webp)
+
+##### Relationships
+
+- User
+  - One-to-One: User.id → Profile.owner
+  - One-to-Many: User.id → Post.owner
+  - One-to-Many: User.id → Comment.owner
+  - Many-to-Many (through Follower): User.id → Follower.owner
+  - Many-to-Many (through Follower): User.id → Follower.followed
+  - Many-to-Many (through Like): User.id → Like.owner
+  - One-to-Many: User.id → Contact.owner
+  - One-to-Many: User.id → BlockUser.owner
+  - One-to-Many: User.id → BlockUser.target
+
+- Profile
+  - One-to-One: Profile.owner → User.id
+
+- Post
+  - Many-to-One: Post.owner → User.id
+  - One-to-Many: Post.id → Comment.post
+  - Many-to-Many (through Like): Post.id → Like.post
+  - Many-to-Many: Post.id → Tag.posts
+
+- Comment
+  - Many-to-One: Comment.owner → User.id
+  - Many-to-One: Comment.post → Post.id
+
+- Like
+  - Many-to-One: Like.owner → User.id
+  - Many-to-One: Like.post → Post.id
+
+- Follower
+  - Many-to-One: Follower.owner → User.id
+  - Many-to-One: Follower.followed → User.id
+
+- Tag
+   - Many-to-Many: Tag.id → Post.tags
+
+- Contact
+   - Many-to-One: Contact.owner → User.id
+
+- BlockUser
+  - Many-to-One: BlockUser.owner → User.id
+  - Many-to-One: BlockUser.target → User.id
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>*   nd the types of relationships among the entities.
+
+#### Database Schema
+
+#### Data Flow
+
+To follow best practice, a flowchart was created for the app's logic, and mapped out before coding began using a free version of Draw.io. Please note, that the flowchart provided is designed to offer a simplified visual overview of the application's core workflow. While it captures the essential operations and user interactions, some implementation details and error-handling mechanisms are abstracted for clarity. The actual application logic may involve additional steps and checks not depicted in the flowchart.
+
+![Data Flow](/documentation/readme-image/flowchart.webp)
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>*   
+
+### API Endpoints
+
+TO BE DEFINED     ---- List and descriptions of available API endpoints.
+
+*<span style="color: blue;">[Back to Content](#table-of-contents)</span>*   
+
 ## Technologies
 
 <details>
