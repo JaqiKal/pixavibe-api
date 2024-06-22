@@ -1,18 +1,10 @@
 # Pixavibe API
-
-# Pixavibe API
 ![amiresponsive](/documentation/readme-image/amiresponsive.webp)
 <br>
 <br>
 Pixavibe is a full-stack web application designed for content sharing, similar to a simplified version of Instagram. It uses Django Rest Framework for the back-end and React for the front-end, providing a seamless user experience for browsing, posting, and interacting with content. Users can post images, comment on posts, and follow other users. They can also create personal feeds by following users and liking posts and hide unwanted content. 
 <br>
 <br>
-<br>
-<br>
-Pixavibe is a full-stack web application designed for content sharing, similar to a simplified version of Instagram. It uses Django Rest Framework for the back-end and React for the front-end, providing a seamless user experience for browsing, posting, and interacting with content. Users can post images, comment on posts, and follow other users. They can also create personal feeds by following users and liking posts and hide unwanted content. 
-<br>
-<br>
-
 The Pixavibe API serves as the backend service for the [Pixavibe Application](https://github.com/JaqiKal/pixavibe).
 The Pixavibe API serves as the backend service for the [Pixavibe Application](https://github.com/JaqiKal/pixavibe).
 
@@ -188,9 +180,7 @@ To follow best practice, a flowchart was created for the app's logic, and mapped
 - [Lucidchart](https://www.lucidchart.com/) is used for ERD (entity relationship diagram)
 - [PEP8](https://peps.python.org/pep-0008/) a style guide for Python code.
 - [PostgreSQL](https://dbs.ci-dbs.net/) provided by the Code Institute, is employed as the database system for its robustness and compatibility with Django.
-</details>
-<br>
-- [PostgreSQL](https://dbs.ci-dbs.net/) provided by the Code Institute, is employed as the database system for its robustness and compatibility with Django.
+
 </details>
 <br>
 
@@ -201,7 +191,6 @@ To follow best practice, a flowchart was created for the app's logic, and mapped
 Information about how the project was tested & Issues encountered, please refer to the [pixavibe-frontend repository, TESTING.md](https://github.com/JaqiKal/pixavibe/blob/main/TESTING.md)
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>*
-
 
 ## Deployment
 
@@ -316,7 +305,5 @@ Please see the [frontend README](https://github.com/JaqiKal/pixavibe-frontend/bl
 <br>
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>*    
-
-[To frontend README]()
 
 [To frontend README]()
