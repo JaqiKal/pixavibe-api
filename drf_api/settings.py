@@ -30,9 +30,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 # This mean it is True in development, and False in production
-DEBUG = 'DEBUG' in os.environ
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+print(f"DEBUG mode is set to: {DEBUG}")
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST'),
@@ -205,9 +207,6 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
         re.IGNORECASE
     ).group(0)
 
-    # CORS_ALLOWED_ORIGIN_REGEXES = [
-    #     rf"{extracted_url}(eu|us)\d+\w\.codeinstitute-ide\.net$",
-    # ]
     CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://.*\.codeinstitute-ide\.net$",]
 
 CORS_ALLOW_CREDENTIALS = True
