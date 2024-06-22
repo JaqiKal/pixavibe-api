@@ -1,12 +1,19 @@
 # Pixavibe API
 
+# Pixavibe API
 ![amiresponsive](/documentation/readme-image/amiresponsive.webp)
 <br>
 <br>
 Pixavibe is a full-stack web application designed for content sharing, similar to a simplified version of Instagram. It uses Django Rest Framework for the back-end and React for the front-end, providing a seamless user experience for browsing, posting, and interacting with content. Users can post images, comment on posts, and follow other users. They can also create personal feeds by following users and liking posts and hide unwanted content. 
 <br>
 <br>
+<br>
+<br>
+Pixavibe is a full-stack web application designed for content sharing, similar to a simplified version of Instagram. It uses Django Rest Framework for the back-end and React for the front-end, providing a seamless user experience for browsing, posting, and interacting with content. Users can post images, comment on posts, and follow other users. They can also create personal feeds by following users and liking posts and hide unwanted content. 
+<br>
+<br>
 
+The Pixavibe API serves as the backend service for the [Pixavibe Application](https://github.com/JaqiKal/pixavibe).
 The Pixavibe API serves as the backend service for the [Pixavibe Application](https://github.com/JaqiKal/pixavibe).
 
 <hr>
@@ -41,6 +48,11 @@ In the development environment, Pixavibe uses SQLite, which is simple to set up 
 <br>
 
 The Entity-Relationship Diagram (ERD) provides a visual representation of the database's structure. It helps in planning and illustrating the SQL tables and the relationships between them. The ERD is an essential part of the database design that shows the entities, their attributes, and the types of relationships among the entities.
+
+REWORK!!   
+- Remove boolean is_active  from 
+- Rename Tag to HAshtag
+- Add category
 
 REWORK!!   
 - Remove boolean is_active  from 
@@ -178,6 +190,9 @@ To follow best practice, a flowchart was created for the app's logic, and mapped
 - [PostgreSQL](https://dbs.ci-dbs.net/) provided by the Code Institute, is employed as the database system for its robustness and compatibility with Django.
 </details>
 <br>
+- [PostgreSQL](https://dbs.ci-dbs.net/) provided by the Code Institute, is employed as the database system for its robustness and compatibility with Django.
+</details>
+<br>
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>*
 
@@ -301,5 +316,7 @@ Please see the [frontend README](https://github.com/JaqiKal/pixavibe-frontend/bl
 <br>
 
 *<span style="color: blue;">[Back to Content](#table-of-contents)</span>*    
+
+[To frontend README]()
 
 [To frontend README]()
