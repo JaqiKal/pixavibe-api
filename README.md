@@ -13,7 +13,7 @@ The Pixavibe API serves as the backend service for the [Pixavibe Application](ht
 ## Table of Contents
 - [Pixavibe API](#pixavibe-api)
   - [General Details](#general-details)
-  - [Database model](#database-model)
+  - [Database and model](#database-and-model)
   - [Technologies](#technologies)
   - [Testing and Issues](#testing-and-issues)
   - [Deployment](#deployment)
@@ -27,11 +27,74 @@ This is the API for the Pixavibe backend application. Detailed information about
 
 - The [Pixavibe live site](https://pixavibe-frontend-e53fa907f215.herokuapp.com/)
 
-## Database model
+## Database and Model
 
 In the development environment, Pixavibe uses SQLite, which is simple to set up and ideal for development and testing. For the production environment, PostgreSQL is used due to its robustness, scalability, and advanced features suitable for handling a live web application.
 
-*<span style="color: blue;">[Back to Content](#table-of-contents)</span>*
+<details>
+<summary>Models in Pixavibe</summary>
+<br>
+
+### Block Model
+- **Fields**: `owner`, `target`, `created_at`
+- **Functionality**: Allows users to filter other users, hiding posts from blocked users. The model name is future-proofed to easily accommodate future improvements, such as preventing blocked users from seeing or interacting with the blocker.
+- **Impact**: Enhances user control over interactions, improving user experience by allowing them to avoid unwanted interactions.
+- **Example**: A user can hide another user who is spamming their posts, providing a safer and more enjoyable experience.
+
+### Category Model
+- **Fields**: `name`, `created_at`, `updated_at`
+- **Functionality**: Categorizes posts to enhance search and filter functionalities.
+- **Impact**: Improves content organization and discoverability, enhancing the user experience by allowing users to find relevant content more efficiently.
+- **Example**: Users interested in photography can filter posts by the 'Photography' category, allowing them to quickly find and engage with relevant content.
+
+### Contact Model
+- **Fields**: Manages user feedback and queries.
+- **Functionality**: Stores user queries, complaints, or suggestions. 
+- **Impact**: Provides a direct channel for user feedback, helping to improve the platform based on user input and enhancing user satisfaction.
+- **Example**: A user facing an issue with their account can easily send a message to the support team using the contact form, ensuring their query is logged and addressed promptly.
+
+### Hashtag Model
+- **Fields**: Basic structure includes a name field and a relationship to posts.
+- **Functionality**: Tags posts with hashtags for improved organization and search.
+- **Impact**: (Despite current issues) Aims to enhance content discoverability through tagging, making it easier for users to find related content.
+- **Current Issues**: Users can add hashtags, but there are issues with updating, deleting, and searching hashtags.
+
+### Comment Model
+- **Fields**: `id`, `owner`, `post_`, `content`, `created_at`, `updated_at`
+- **Functionality**: Stores comments made by users on posts.
+- **Impact**: Facilitates engagement and community interaction by allowing users to comment on each other's posts.
+- **Example**: Users comment on a friend's post to share their thoughts and reactions, fostering discussions.
+
+### Post Model
+- **Fields**: `id`, `owner`, `title`, `content`, `created_at`, `updated_at`, `hashtags`, `category`
+- **Functionality**: Stores posts created by users.
+- **Impact**: Central to the content-sharing functionality, allowing users to create and share posts with their followers.
+- **Example**: A user creates a new post with a photo from their recent trip and assigns it to the 'Travel' category.
+
+### Profile Model
+- **Fields**: `id`, `owner`, `name`, `content`, `image`, `created_at`, `updated_at`
+- **Functionality**: Stores user profile information.
+- **Impact**: Enhances user profiles by allowing customization, making the platform more personalized and engaging.
+- **Example**: A user uploads a profile picture and writes a short bio to make their profile more attractive to other users.
+
+### Follower Model
+- **Fields**: `id`, `owner`, `followed`, `created_at`, `updated_at`
+- **Functionality**: Stores follower relationships between users.
+- **Impact**: Enables users to follow each other, creating a personalized feed based on followed users' posts.
+- **Example**: User A follows User B to see User B's posts in their feed, fostering engagement and community building.
+
+### Like Model
+- **Fields**: `id`, `owner`, `post`, `created_at`, `updated_at`
+- **Functionality**: Stores likes on posts by users.
+- **Impact**: Provides a way for users to express appreciation for content, increasing user interaction and engagement.
+- **Example**: A user likes a friend's post, which may also increase the visibility of popular content through likes.
+
+### User Model (from django.contrib.auth.models)
+- **Fields**: `id`, `username`, `email`, `password`, `created_at`, `updated_at`
+- **Functionality**: Manages user authentication and basic information.
+- **Impact**: Provides essential authentication functionality, ensuring users can securely log in and access their accounts.
+- **Example**: Users can register, log in, and have their authentication details securely stored.
+</details>
 
 ### Data Modeling and Database Design
 
@@ -41,21 +104,12 @@ In the development environment, Pixavibe uses SQLite, which is simple to set up 
 
 The Entity-Relationship Diagram (ERD) provides a visual representation of the database's structure. It helps in planning and illustrating the SQL tables and the relationships between them. The ERD is an essential part of the database design that shows the entities, their attributes, and the types of relationships among the entities.
 
-REWORK!!   
-- Remove boolean is_active  from 
-- Rename Tag to HAshtag
-- Add category
-
-REWORK!!   
-- Remove boolean is_active  from 
-- Rename Tag to HAshtag
-- Add category
-
 ![erd](/documentation/readme-image/erd.webp)
 
 **Relationships**
 
-- User
+
+1. User
   - One-to-One: User.id → Profile.owner
   - One-to-Many: User.id → Post.owner
   - One-to-Many: User.id → Comment.owner
@@ -63,39 +117,43 @@ REWORK!!
   - Many-to-Many (through Follower): User.id → Follower.followed
   - Many-to-Many (through Like): User.id → Like.owner
   - One-to-Many: User.id → Contact.owner
-  - One-to-Many: User.id → BlockUser.owner
-  - One-to-Many: User.id → BlockUser.target
+  - One-to-Many: User.id → Block.owner
+  - One-to-Many: User.id → Block.target
 
-- Profile
+2. Profile
   - One-to-One: Profile.owner → User.id
 
-- Post
+3. Post
   - Many-to-One: Post.owner → User.id
   - One-to-Many: Post.id → Comment.post
   - Many-to-Many (through Like): Post.id → Like.post
-  - Many-to-Many: Post.id → Tag.posts
+  - Many-to-Many: Post.id → Hashtag.post
+  - Many-to-One: Post.category → Category.id
 
-- Comment
+4. Comment
   - Many-to-One: Comment.owner → User.id
   - Many-to-One: Comment.post → Post.id
 
-- Like
+5. Like
   - Many-to-One: Like.owner → User.id
   - Many-to-One: Like.post → Post.id
 
-- Follower
+6. Follower
   - Many-to-One: Follower.owner → User.id
   - Many-to-One: Follower.followed → User.id
 
-- Tag
-   - Many-to-Many: Tag.id → Post.tags
+7. Hashtag
+  - Many-to-Many: Hashtag.id → Post.hashtags
 
-- Contact
-   - Many-to-One: Contact.owner → User.id
+8. Contact
+  - Many-to-One: Contact.owner → User.id
 
-- BlockUser
-  - Many-to-One: BlockUser.owner → User.id
-  - Many-to-One: BlockUser.target → User.id
+9. Block
+  - Many-to-One: Block.owner → User.id
+  - Many-to-One: Block.target → User.id
+
+10. Category
+  - One-to-Many: Category.id → Post.category
 </details>
 
 ### Database Schema
