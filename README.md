@@ -335,6 +335,7 @@ Cloning a GitHub repository creates a local copy on your machine, allowing you t
 - Check that both the virtual environment and env.py are named in the .gitignore file.
 - Check it's all working by running the server, use command: `python3 manage.py runserver`
  </details>
+<br>
 
 <details>
 <summary>How to Fork the Repository</summary>
@@ -349,9 +350,7 @@ Most commonly, forks are used to either propose changes to someone else's projec
 - One can change the name of the fork and add description
 - Choose to copy only the main branch or all branches to the new fork.
 - Click Create a Fork. A repository should appear in your GitHub
-
 </details>
-<br>
 
 ## Credits
 
@@ -370,7 +369,6 @@ Throughout the development of Pixavibe, a variety of resources have been utilize
   - **Testing inspiration**: is listed in [Pixavibe-Frontend README](https://github.com/JaqiKal/pixavibe-frontend/blob/main/README.md#content)
 </details>
 <br>
-
 
 <details>
 <summary>Acknowledgement</summary>
