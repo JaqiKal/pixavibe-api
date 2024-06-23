@@ -48,7 +48,7 @@ In the development environment, Pixavibe uses SQLite, which is simple to set up 
 - **Example**: Users interested in photography can filter posts by the 'Photography' category, allowing them to quickly find and engage with relevant content.
 
 ### Contact Model
-- **Fields**: Manages user feedback and queries.
+- **Fields**: Manages user feedback and queries. 
 - **Functionality**: Stores user queries, complaints, or suggestions. 
 - **Impact**: Provides a direct channel for user feedback, helping to improve the platform based on user input and enhancing user satisfaction.
 - **Example**: A user facing an issue with their account can easily send a message to the support team using the contact form, ensuring their query is logged and addressed promptly.
@@ -313,27 +313,45 @@ Create a new workspace in your preferred IDE, in our case it was [Gitpod](https:
 ### Github
 
 <details>
-<summary>How to Fork the Repository</summary>
-<br>
-
-- Log in (or sign up) to GitHub.
-- Go to the repository for this project, JaqiKal/pixavibe-api.
-- Click the Fork button in the top right corner.
-- This will create a duplicate of the full project in your GitHub Repository.
-</details>
-<br>
-
-<details>
 <summary>How to Clone the Repository</summary>
 <br>
 
-- Log in (or sign up) to GitHub.
-- Go to the repository for this project, JaqiKal/pixavibe-api.
-- Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
-- Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
-- Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
-</details>
+Cloning a GitHub repository creates a local copy on your machine, allowing you to sync between the two locations. Here are the steps:
+<br>
 
+- Log in (or sign up) to GitHub.
+- Navigate to the GitHub Repository you want to clone to use locally.
+- Click on the code button
+- Select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy repository link to the clipboard.
+- Open the terminal in your code editor of choice (git must be installed for the nextcoming steps)
+- Change the current working directory to the location you want to use for the cloned directory.
+- Type 'git clone' into the terminal and then paste the link you copied previously. Press enter.
+- If you are working in VSCode, create a virtual environment with command: `python3 -m venv .venv` 
+- Agree to select as workspace folder. 
+- Move to the virtual environment with command: `source .venv/bin/activate`
+- Import all dependencies with command: `pip3 install -r requirements.txt`
+- Create an 'env.py' file in the main directory.
+- Enter key data, such as: SECRET_KEY, CLIENT_ORIGIN_DEV, CLOUDINARY_URL, DATABASE_URL and ['DEV'] = '1'
+- Check that both the virtual environment and env.py are named in the .gitignore file.
+- Check it's all working by running the server, use command: `python3 manage.py runserver`
+ </details>
+
+<details>
+<summary>How to Fork the Repository</summary>
+<br>
+
+Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea. In order to protect the main branch while you work on something new, essential when working as part of a team or when you want to experiment with a new feature, you will need to fork a branch.
+<br>
+
+- Log in (or sign up) to Github.
+- Go to the selected repository.
+- Click the Fork button in the top right corner and select create a fork.
+- One can change the name of the fork and add description
+- Choose to copy only the main branch or all branches to the new fork.
+- Click Create a Fork. A repository should appear in your GitHub
+
+</details>
+<br>
 
 ## Credits
 
