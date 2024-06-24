@@ -5,8 +5,7 @@
 Pixavibe is a full-stack web application designed for content sharing, similar to a simplified version of Instagram. It uses Django Rest Framework for the back-end and React for the front-end, providing a seamless user experience for browsing, posting, and interacting with content. Users can post images, comment on posts, and follow other users. They can also create personal feeds by following users and liking posts and hide unwanted content. 
 <br>
 <br>
-The Pixavibe API serves as the backend service for the [Pixavibe Application](https://github.com/JaqiKal/pixavibe).
-The Pixavibe API serves as the backend service for the [Pixavibe Application](https://github.com/JaqiKal/pixavibe).
+The Pixavibe API serves as the backend service for the Pixavibe Application, [view live site here](https://pixavibe-frontend-e53fa907f215.herokuapp.com/).
 
 <hr>
 
@@ -24,8 +23,6 @@ The Pixavibe API serves as the backend service for the [Pixavibe Application](ht
 This is the API for the Pixavibe backend application. Detailed information about strategy, structure, skeleton, surface plane, testing and open issues is found in the frontend repository README and TESTING information.
 
 - The Pixavibe [frontend repository](https://github.com/JaqiKal/pixavibe)
-
-- The [Pixavibe live site](https://pixavibe-frontend-e53fa907f215.herokuapp.com/)
 
 ## Database and Model
 
@@ -57,7 +54,7 @@ In the development environment, Pixavibe uses SQLite, which is simple to set up 
 - **Fields**: Basic structure includes a name field and a relationship to posts.
 - **Functionality**: Tags posts with hashtags for improved organization and search.
 - **Impact**: (Despite current issues) Aims to enhance content discoverability through tagging, making it easier for users to find related content.
-- **Current Issues**: Users can add hashtags, but there are issues with updating, deleting, and searching hashtags.
+- **Current Issues**: Users can add hashtags, but there are issues with updating, deleting, and searching hashtags, see [BUG#68](https://github.com/JaqiKal/pixavibe-frontend/issues/68).
 
 ### Comment Model
 - **Fields**: `id`, `owner`, `post_`, `content`, `created_at`, `updated_at`
